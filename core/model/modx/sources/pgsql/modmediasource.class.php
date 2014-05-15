@@ -9,6 +9,7 @@ require_once (dirname(dirname(__FILE__)) . '/modmediasource.class.php');
  * @subpackage sources.pgsql
  */
 class modMediaSource_pgsql extends modMediaSource {
+<<<<<<< HEAD
     public function findPolicy($context = '') {
         $policy = array();
         $enabled = true;
@@ -51,4 +52,6 @@ class modMediaSource_pgsql extends modMediaSource {
         }
         return $policy;
     }
+=======
+>>>>>>> Bit more to initial commit
 }

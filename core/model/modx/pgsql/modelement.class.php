@@ -52,5 +52,4 @@ class modElement_pgsql extends modElement {
         }
         return $propertySet;
     }
-
 }
