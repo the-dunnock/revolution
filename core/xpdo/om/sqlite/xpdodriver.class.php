@@ -67,4 +67,12 @@ class xPDODriver_sqlite extends xPDODriver {
         $this->dbtypes['datetime']= array('/TIMESTAMP/i','/DATE/i');
         $this->dbtypes['binary']= array('/BLOB/i');
     }
+
+    /**
+     * PDO::lastInsertID
+     */
+    public function lastInsertId($className = null, $column = null) {
+        return $this->xpdo->pdo->lastInsertId();
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2010-2013 by MODX, LLC.
+ * Copyright 2010-2012 by MODX, LLC.
  *
  * This file is part of xPDO.
  *
@@ -19,10 +19,10 @@
  */
 
 /**
- * The sqlsrv implementation of the xPDODriver class.
+ * The pgsql implementation of the xPDODriver class.
  *
  * @package xpdo
- * @subpackage om.sqlsrv
+ * @subpackage om.pgsql
  */
 
 /**
@@ -31,48 +31,67 @@
 require_once (dirname(dirname(__FILE__)) . '/xpdodriver.class.php');
 
 /**
- * Provides sqlsrv driver abstraction for an xPDO instance.
+ * Provides PostgreSQL driver abstraction for an xPDO instance.
  *
  * This is baseline metadata and methods used throughout the framework.  xPDODriver 
  * class implementations are specific to a PDO driver and this instance is 
- * implemented for sqlsrv.
+ * implemented for postgresql.
  *
  * @package xpdo
- * @subpackage om.sqlsrv
+ * @subpackage om.pgsql
  */
-class xPDODriver_sqlsrv extends xPDODriver {
+class xPDODriver_pgsql extends xPDODriver {
     public $quoteChar = "'";
-    public $escapeOpenChar = '[';
-    public $escapeCloseChar = ']';
+    public $escapeOpenChar = '"';
+    public $escapeCloseChar = '"';
     public $_currentTimestamps= array(
         "CURRENT_TIMESTAMP",
-        "GETDATE()"
+        "CLOCK_TIMESTAMP()",
+        "LOCALTIMESTAMP",
+        "NOW()",
+        "TRANSACTION_TIMESTAMP()",
+        "STATEMENT_TIMESTAMP"
     );
     public $_currentDates= array(
         "CURRENT_DATE"
     );
     public $_currentTimes= array(
-        "CURRENT_TIME"
+        "CURRENT_TIME",
+        'LOCALTIME'
     );
 
     /**
-     * Get a sqlsrv xPDODriver instance.
+     * Get a pgsql xPDODriver instance.
      *
      * @param xPDO &$xpdo A reference to a specific xPDO instance.
      */
     function __construct(xPDO &$xpdo) {
         parent :: __construct($xpdo);
-        $this->dbtypes['integer']= array('/INT$/i');
-        $this->dbtypes['float']= array('/^DEC/i','/^NUMERIC$/i','/^FLOAT$/i','/^REAL$/i','/MONEY$/i');
-        $this->dbtypes['string']= array('/CHAR$/i','/TEXT$/i');
+        $this->dbtypes['integer']= array('/INT/i', '/SERIAL$/i');
+        $this->dbtypes['boolean']= array('/^BOOLEAN$/i');
+        $this->dbtypes['float']= array('/^DECIMAL$/i','/^NUMERIC$/i','/^REAL/i','/^DOUBLE/i','/^REAL/i');
+        $this->dbtypes['string']= array('/CHAR/i','/^TEXT$/i','/^ENUM$/i', '/^CIDR$/i', '/^INET$/i', '/^MACADDR$/i');
+        $this->dbtypes['timestamp']= array('/^TIMESTAMP$/i');
         $this->dbtypes['date']= array('/^DATE$/i');
-        $this->dbtypes['datetime']= array('/DATETIME/i');
         $this->dbtypes['time']= array('/^TIME$/i');
-        $this->dbtypes['binary']= array('/BINARY$/i','/^IMAGE$/i');
-        $this->dbtypes['bit']= array('/^BIT$/i');
+        $this->dbtypes['binary']= array('/BYTEA/i');
+        $this->dbtypes['bit']= array('/^BIT/i');
     }
-
+    
     public function lastInsertId($className = null, $column = null) {
-        return $this->xpdo->pdo->lastInsertId();
+        $return = false;
+        $max = 0;
+        if ($className) {
+            if (!$column) {
+                $column = $this->xpdo->getPK($className);
+            }
+            $tableName = $this->xpdo->literal($this->xpdo->getTableName($className));
+            $sql = "SELECT currval('{$tableName}_{$column}_seq')";
+            $seqStmt = $this->xpdo->query($sql);
+            if ($sequence = $seqStmt->fetchColumn()) {
+                $return = intval($sequence);
+            }
+        }
+        return $return;
     }
 }

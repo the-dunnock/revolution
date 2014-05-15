@@ -25,8 +25,6 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
     'topic' => 
     array (
       'dbtype' => 'integer',
-      'precision' => '10',
-      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
       'index' => 'pk',
@@ -41,15 +39,15 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
     ),
     'created' => 
     array (
-      'dbtype' => 'datetime',
-      'phptype' => 'datetime',
+      'dbtype' => 'timestamp',
+      'phptype' => 'timestamp',
       'null' => false,
       'index' => 'index',
     ),
     'valid' => 
     array (
-      'dbtype' => 'datetime',
-      'phptype' => 'datetime',
+      'dbtype' => 'timestamp',
+      'phptype' => 'timestamp',
       'null' => false,
       'index' => 'index',
     ),
@@ -63,8 +61,6 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
     'accesses' => 
     array (
       'dbtype' => 'integer',
-      'precision' => '10',
-      'attributes' => 'unsigned',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
@@ -73,7 +69,6 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
     'expires' => 
     array (
       'dbtype' => 'integer',
-      'precision' => '20',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
@@ -81,15 +76,13 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
     ),
     'payload' => 
     array (
-      'dbtype' => 'mediumtext',
+      'dbtype' => 'text',
       'phptype' => 'string',
       'null' => false,
     ),
     'kill' => 
     array (
-      'dbtype' => 'tinyint',
-      'precision' => '1',
-      'attributes' => 'unsigned',
+      'dbtype' => 'integer',
       'phptype' => 'boolean',
       'null' => false,
       'default' => 0,

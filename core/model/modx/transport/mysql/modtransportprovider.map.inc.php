@@ -30,12 +30,12 @@ $xpdo_meta_map['modTransportProvider']= array (
     ),
     'description' => 
     array (
-      'dbtype' => 'mediumtext',
+      'dbtype' => 'text',
       'phptype' => 'string',
     ),
     'service_url' => 
     array (
-      'dbtype' => 'tinytext',
+      'dbtype' => 'text',
       'phptype' => 'string',
     ),
     'username' => 
@@ -58,8 +58,8 @@ $xpdo_meta_map['modTransportProvider']= array (
     ),
     'created' => 
     array (
-      'dbtype' => 'datetime',
-      'phptype' => 'datetime',
+      'dbtype' => 'timestamp',
+      'phptype' => 'timestamp',
       'null' => false,
     ),
     'updated' => 

@@ -17,8 +17,7 @@ $xpdo_meta_map['modMediaSourceContext']= array (
   array (
     'source' => 
     array (
-      'dbtype' => 'int',
-      'precision' => '11',
+      'dbtype' => 'integer',
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,

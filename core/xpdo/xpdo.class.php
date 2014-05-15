@@ -3,7 +3,7 @@
  * OpenExpedio ("xPDO") is an ultra-light, PHP 5.2+ compatible ORB (Object-
  * Relational Bridge) library based around PDO (http://php.net/pdo/).
  *
- * Copyright 2010-2014 by MODX, LLC.
+ * Copyright 2010-2013 by MODX, LLC.
  *
  * This file is part of xPDO.
  *
@@ -2472,11 +2472,11 @@ class xPDO {
     /**
      * @see http://php.net/manual/en/function.pdo-lastinsertid.php
      */
-    public function lastInsertId() {
+    public function lastInsertId($className = null, $fieldName = null) {
         if (!$this->connect()) {
             return false;
         }
-        return $this->pdo->lastInsertId();
+        return $this->driver->lastInsertId($className, $fieldName);
     }
 
     /**
