@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2010-2014 by MODX, LLC.
+ * Copyright 2010-2013 by MODX, LLC.
  *
  * This file is part of xPDO.
  *
@@ -81,5 +81,9 @@ class xPDODriver_mysql extends xPDODriver {
         $this->dbtypes['date']= array('/^DATE$/i');
         $this->dbtypes['binary']= array('/BINARY/i','/BLOB/i');
         $this->dbtypes['bit']= array('/^BIT$/i');
+    }
+
+    public function lastInsertId($className = null, $column = null) {
+        return $this->xpdo->pdo->lastInsertId();
     }
 }

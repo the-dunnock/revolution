@@ -44,15 +44,13 @@ $xpdo_meta_map['modMediaSource']= array (
     ),
     'properties' => 
     array (
-      'dbtype' => 'mediumtext',
+      'dbtype' => 'text',
       'phptype' => 'array',
       'null' => true,
     ),
     'is_stream' => 
     array (
-      'dbtype' => 'tinyint',
-      'precision' => '1',
-      'attributes' => 'unsigned',
+      'dbtype' => 'smallint',
       'phptype' => 'boolean',
       'null' => false,
       'default' => 1,
