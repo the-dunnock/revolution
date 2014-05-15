@@ -176,7 +176,11 @@ class xPDOObject_pgsql extends xPDOObject {
                 if ($result) {
                     if ($pkGenerated) {
                         $obj->_fields[$obj->getPK()]= $obj->xpdo->lastInsertId($obj->_class, $obj->getPK());
+<<<<<<< HEAD
                         $pk= $obj->getPrimaryKey();
+=======
+                    $pk= $obj->getPrimaryKey();
+>>>>>>> Initial postgres commit
                     }
                     if ($pk || !$obj->getPK()) {
                         $obj->_dirty= array();

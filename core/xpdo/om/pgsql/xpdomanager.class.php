@@ -49,6 +49,7 @@ class xPDOManager_pgsql extends xPDOManager {
             if ($username === null) $username = $this->xpdo->getOption('username', null, '');
             if ($password === null) $password = $this->xpdo->getOption('password', null, '');
             if (is_array($dsnArray) && is_string($username) && is_string($password)) {
+<<<<<<< HEAD
                 $sql= 'CREATE DATABASE ' . $dsnArray['dbname'];
                 $sql .= " TEMPLATE template0 ";
                 if (isset ($containerOptions['charset'])) {
@@ -56,6 +57,17 @@ class xPDOManager_pgsql extends xPDOManager {
                 }
                 if (isset ($containerOptions['collation'])) {
                     $sql.= ' LC_COLLATE = \'' .$containerOptions['collation'].'\'';
+=======
+                $sql= 'CREATE DATABASE ' . $this->xpdo->escape($dsnArray['dbname']);
+                if (isset ($containerOptions['charset'])) {
+                    $sql.= ' WITH ENCODING ' . $containerOptions['charset'];
+                }
+                if (isset ($containerOptions['collation'])) {
+                    if (!isset ($containerOptions['charset'])) {
+                        $sql . " WITH";
+                    }
+                    $sql.= ' LC_COLLATE ' . $containerOptions['collation'];
+>>>>>>> Initial postgres commit
                 }
                 try {
                     $pdo = new PDO("pgsql:host={$dsnArray['host']}", $username, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
