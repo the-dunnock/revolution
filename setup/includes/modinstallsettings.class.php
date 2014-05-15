@@ -37,6 +37,10 @@ class modInstallSettings {
                     $database_dsn = "{$this->settings['database_type']}:host={$this->settings['database_server']};dbname={$this->settings['dbase']};charset={$this->settings['database_connection_charset']}";
                     $server_dsn = "{$this->settings['database_type']}:host={$this->settings['database_server']};charset={$this->settings['database_connection_charset']}";
                     break;
+                case 'pgsql':
+                    $database_dsn = "{$this->settings['database_type']}:host={$this->settings['database_server']};dbname={$this->settings['dbase']}";
+                    $server_dsn = "{$this->settings['database_type']}:host={$this->settings['database_server']}";
+                    break;
                 default:
                     $database_dsn = '';
                     $server_dsn = '';
