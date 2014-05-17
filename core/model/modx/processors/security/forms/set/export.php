@@ -23,7 +23,7 @@ if (empty($scriptProperties['download'])) {
     ));
     $c->select($modx->getSelectColumns('modFormCustomizationSet','modFormCustomizationSet'));
     $c->select(array(
-        'Template.templatename',
+        $modx->escape('Template').'.templatename',
     ));
     $set = $modx->getObject('modFormCustomizationSet',$c);
     if ($set == null) return $modx->error->failure($modx->lexicon('set_err_nf'));

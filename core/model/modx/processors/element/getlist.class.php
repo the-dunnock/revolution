@@ -14,7 +14,7 @@ abstract class modElementGetListProcessor extends modObjectGetListProcessor {
     public function prepareQueryAfterCount(xPDOQuery $c) {
         $c->select($this->modx->getSelectColumns($this->classKey,$this->classKey));
         $c->select(array(
-            'category_name' => 'Category.category',
+            'category_name' => "{$this->modx->escape('Category')}.{$this->modx->escape('category')}",
         ));
         return $c;
     }

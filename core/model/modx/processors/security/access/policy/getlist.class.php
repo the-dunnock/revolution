@@ -57,14 +57,14 @@ class modAccessPolicyGetListProcessor extends modObjectGetListProcessor {
     
     public function prepareQueryAfterCount(xPDOQuery $c) {
         $subc = $this->modx->newQuery('modAccessPermission');
-        $subc->select('COUNT(modAccessPermission.id)');
+        $subc->select('COUNT('.$this->modx->escape('modAccessPermission').'.id)');
         $subc->where(array(
             'modAccessPermission.template = Template.id',
         ));
         $subc->prepare();
         $c->select($this->modx->getSelectColumns('modAccessPolicy','modAccessPolicy'));
         $c->select(array(
-            'template_name' => 'Template.name',
+            'template_name' => $this->modx->escape('Template').'.name',
         ));
         $c->select('('.$subc->toSql().') AS '.$this->modx->escape('total_permissions'));
         return $c;

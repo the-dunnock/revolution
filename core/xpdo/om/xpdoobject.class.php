@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2010-2014 by MODX, LLC.
+ * Copyright 2010-2013 by MODX, LLC.
  *
  * This file is part of xPDO.
  *
@@ -1332,6 +1332,12 @@ class xPDOObject {
         if ($this->isLazy()) {
             $this->xpdo->log(xPDO::LOG_LEVEL_ERROR, 'Attempt to save lazy object: ' . print_r($this->toArray('', true), 1));
             return false;
+        }
+        //Pgsql and Oci have their own save methods
+        if (in_array($this->xpdo->config['dbtype'], array('pgsql', 'oci'))) {
+            $saved = $this->xpdo->call('xPDOObject', '_save', array(&$this, $cacheFlag));
+            if ($saved)
+                return $saved;
         }
         $result= true;
         $sql= '';
