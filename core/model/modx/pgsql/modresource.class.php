@@ -53,7 +53,10 @@ class modResource_pgsql extends modResource {
                 "{$resource->xpdo->escape('tvc')}.{$resource->xpdo->escape('contentid')}" => $resource->get('id'),
             ));
         }
-        $c->sortby("{$resource->xpdo->escape('tvtpl')}.{$resource->xpdo->escape('rank')},{$resource->xpdo->escape('modTemplateVar')}.{$resource->xpdo->escape('rank')}");
+        if ($resource->isNew()) {
+            $c->sortby('tv_rank');
+        }
+        $c->sortby("{$resource->xpdo->escape('modTemplateVar')}.{$resource->xpdo->escape('rank')}");
         return $resource->xpdo->getCollection('modTemplateVar', $c);
     }
 }
