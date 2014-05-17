@@ -16,7 +16,7 @@ class modFormCustomizationProfile_pgsql extends modFormCustomizationProfile {
             '"modFormCustomizationProfile".*',
         ));
         $c->select(array(
-            'usergroups' => '(SELECT string_agg("UserGroup"."name", \',\') FROM '.$xpdo->getTableName('modUserGroup').' AS UserGroup
+            'usergroups' => '(SELECT string_agg("UserGroup"."name", \',\') FROM '.$xpdo->getTableName('modUserGroup').' AS "UserGroup"
                 INNER JOIN '.$xpdo->getTableName('modFormCustomizationProfileUserGroup').' AS fcpug
                     ON fcpug.usergroup = "UserGroup"."id"
                 WHERE fcpug.profile = "modFormCustomizationProfile"."id")'
