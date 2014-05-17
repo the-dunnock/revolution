@@ -69,11 +69,7 @@ class xPDODriver_pgsql extends xPDODriver {
         parent :: __construct($xpdo);
         $this->dbtypes['integer']= array('/INT/i', '/SERIAL$/i');
         $this->dbtypes['boolean']= array('/^BOOLEAN$/i');
-<<<<<<< HEAD
         $this->dbtypes['float']= array('/^DECIMAL$/i','/^NUMERIC$/i','/^REAL/i','/^DOUBLE/i');
-=======
-        $this->dbtypes['float']= array('/^DECIMAL$/i','/^NUMERIC$/i','/^REAL/i','/^DOUBLE/i','/^REAL/i');
->>>>>>> Initial postgres commit
         $this->dbtypes['string']= array('/CHAR/i','/^TEXT$/i','/^ENUM$/i', '/^CIDR$/i', '/^INET$/i', '/^MACADDR$/i');
         $this->dbtypes['timestamp']= array('/^TIMESTAMP$/i');
         $this->dbtypes['date']= array('/^DATE$/i');
@@ -90,15 +86,13 @@ class xPDODriver_pgsql extends xPDODriver {
                 $column = $this->xpdo->getPK($className);
             }
             $tableName = $this->xpdo->literal($this->xpdo->getTableName($className));
-<<<<<<< HEAD
             $sql = "SELECT currval('{$tableName}_{$column}_seq'::regclass)";
-=======
-            $sql = "SELECT currval('{$tableName}_{$column}_seq')";
->>>>>>> Initial postgres commit
+
             $seqStmt = $this->xpdo->query($sql);
             if ($sequence = $seqStmt->fetchColumn()) {
                 $return = intval($sequence);
             }
+            $this->xpdo->log(xPDO::LOG_LEVEL_ERROR, "SEQUENCE ID: " . $return);
         }
         return $return;
     }
