@@ -32,7 +32,7 @@ class modTemplateVar_pgsql extends modTemplateVar {
                 array(
                     "(\"modActionDom\".{$ruleFieldName} = 'tvDefault'
                    OR \"modActionDom\".{$ruleFieldName} = 'tvVisible'
-                   OR modActionDom.{$ruleFieldName} = 'tvTitle')"
+                   OR \"modActionDom\".{$ruleFieldName} = 'tvTitle')"
                 ),
                 "'tv{$this->get('id')}' IN ({$this->xpdo->escape('modActionDom')}.{$this->xpdo->escape('name')})",
                 '"FCSet"."active"' => true,
