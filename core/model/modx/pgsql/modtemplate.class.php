@@ -16,11 +16,12 @@ class modTemplate_pgsql extends modTemplate {
             $c->query['distinct'] = 'DISTINCT';
             $c->select($this->xpdo->getSelectColumns('modTemplateVar'));
             $c->select(array('value' => $this->xpdo->getSelectColumns('modTemplateVar', 'modTemplateVar', '', array('default_text'))));
+            $c->select(array('tv_rank' => '"tvtpl"."rank"'));
             $c->innerJoin('modTemplateVarTemplate','tvtpl',array(
                 'tvtpl.tmplvarid = "modTemplateVar".id',
                 'tvtpl.templateid' => $this->get('id'),
             ));
-            $c->sortby('tvtpl.rank,"modTemplateVar".rank');
+            $c->sortby('tv_rank,"modTemplateVar".rank');
 
             $collection = $this->xpdo->getCollection('modTemplateVar', $c, $cacheFlag);
         } else {
@@ -41,8 +42,8 @@ class modTemplate_pgsql extends modTemplate {
         $c->leftJoin('modCategory','Category');
         if (!empty($conditions)) { $c->where($conditions); }
         $c->select(array(
-            'CASE WHEN IS NULL "modTemplateVarTemplate"."tmplvarid" THEN 0 ELSE 1 END as access',
-            'CASE WHEN IS NULL "modTemplateVarTemplate"."rank" THEN \'-\' ELSE "modTemplateVarTemplate"."rank" END as tv_rank',
+            'CASE WHEN "modTemplateVarTemplate"."tmplvarid" IS NULL THEN 0 ELSE 1 END as access',
+            'COALESCE(CAST("modTemplateVarTemplate"."rank" AS VARCHAR), \'-\')',
             'category_name' => '"Category"."category"',
         ));
         foreach ($sort as $sortKey => $sortDir) {

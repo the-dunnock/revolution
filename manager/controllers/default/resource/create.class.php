@@ -174,11 +174,12 @@ class ResourceCreateManagerController extends ResourceManagerController {
     public function getDefaultTemplate() {
         $defaultTemplate = (isset($this->scriptProperties['template']) ? $this->scriptProperties['template'] : (!empty($this->parent->id) ? $this->parent->get('template') : $this->context->getOption('default_template', 0, $this->modx->_userConfig)));
         $userGroups = $this->modx->user->getUserGroups();
+        // "{$this->modx->escape('aa')}.{$this->modx->escape('aa')}"
         $c = $this->modx->newQuery('modActionDom');
         $c->innerJoin('modFormCustomizationSet','FCSet');
-        $c->innerJoin('modFormCustomizationProfile','Profile','FCSet.profile = Profile.id');
-        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup','Profile.id = ProfileUserGroup.profile');
-        $c->leftJoin('modFormCustomizationProfile','UGProfile','UGProfile.id = ProfileUserGroup.profile');
+        $c->innerJoin('modFormCustomizationProfile','Profile',"{$this->modx->escape('FCSet')}.{$this->modx->escape('profile')} = {$this->modx->escape('Profile')}.{$this->modx->escape('id')}");
+        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup',"{$this->modx->escape('Profile')}.{$this->modx->escape('id')} = {$this->modx->escape('ProfileUserGroup')}.{$this->modx->escape('profile')}");
+        $c->leftJoin('modFormCustomizationProfile','UGProfile',"{$this->modx->escape('UGProfile')}.{$this->modx->escape('id')} = {$this->modx->escape('ProfileUserGroup')}.{$this->modx->escape('profile')}");
         $c->where(array(
             'modActionDom.action' => 'resource/create',
             'modActionDom.name' => 'template',
