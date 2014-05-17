@@ -57,10 +57,9 @@ class modElementTvTemplateGetList extends modProcessor {
         /* query for templates */
         $c = $this->modx->newQuery('modTemplate');
         $data['total'] = $this->modx->getCount('modTemplate',$c);
-        
         $c->leftJoin('modTemplateVarTemplate','TemplateVarTemplates',array(
-            'modTemplate.id = TemplateVarTemplates.templateid',
-            'TemplateVarTemplates.tmplvarid' => $this->getProperty('tv'),
+            "{$this->modx->escape('modTemplate')}.{$this->modx->escape('id')} = {$this->modx->escape('TemplateVarTemplates')}.{$this->modx->escape('templateid')}",
+            "{$this->modx->escape('TemplateVarTemplates')}.{$this->modx->escape('tmplvarid')}" => $this->getProperty('tv')
         ));
         
         $c->select($this->modx->getSelectColumns('modTemplate','modTemplate'));

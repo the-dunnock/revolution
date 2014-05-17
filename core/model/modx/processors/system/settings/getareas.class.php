@@ -67,7 +67,7 @@ class modSystemSettingsGetAreasProcessor extends modProcessor {
         $c = $this->modx->newQuery('modSystemSetting');
         $c->setClassAlias('settingsArea');
         $c->leftJoin('modSystemSetting', 'settingsCount', array(
-            'settingsArea.' . $this->modx->escape('key') . ' = settingsCount.' . $this->modx->escape('key')
+            $this->modx->escape('settingsArea').'.' . $this->modx->escape('key') . ' = '.$this->modx->escape('settingsCount').'.'.$this->modx->escape('key')
         ));
         if (!empty($namespace)) {
             $c->where(array(
@@ -80,11 +80,11 @@ class modSystemSettingsGetAreasProcessor extends modProcessor {
             ));
         }
         $c->select(array(
-            'settingsArea.' . $this->modx->escape('area'),
-            'settingsArea.' . $this->modx->escape('namespace'),
-            'COUNT(settingsCount.' . $this->modx->escape('key') . ') AS num_settings'
+            $this->modx->escape('settingsArea').'.' . $this->modx->escape('area'),
+            $this->modx->escape('settingsArea').'.' . $this->modx->escape('namespace'),
+            'COUNT('.$this->modx->escape('settingsCount').'.'.$this->modx->escape('key') . ') AS num_settings'
         ));
-        $c->groupby('settingsArea.' . $this->modx->escape('area') . ', settingsArea.' . $this->modx->escape('namespace'));
+        $c->groupby($this->modx->escape('settingsArea').'.' . $this->modx->escape('area') . ','.$this->modx->escape('settingsArea').'.' . $this->modx->escape('namespace'));
         $c->sortby($this->modx->escape('area'),$this->getProperty('dir','ASC'));
         return $c;
     }

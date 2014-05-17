@@ -60,8 +60,8 @@ class modProfileGetProcessor extends modProcessor {
         ));
         $c->select($this->modx->getSelectColumns('modUserGroupMember','modUserGroupMember'));
         $c->select(array(
-            'role_name' => 'UserGroupRole.name',
-            'user_group_name' => 'UserGroup.name',
+            'role_name' => $this->modx->escape('UserGroupRole').'.name',
+            'user_group_name' => $this->modx->escape('UserGroup').'.name',
         ));
         $members = $this->modx->getCollection('modUserGroupMember',$c);
 

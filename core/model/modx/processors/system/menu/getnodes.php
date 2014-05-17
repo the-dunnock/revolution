@@ -29,7 +29,7 @@ $c->leftJoin('modMenu','Children');
 $modMenuCols = $modx->getSelectColumns('modMenu','modMenu');
 $c->select($modMenuCols);
 $c->select(array(
-    'COUNT(Children.text) AS childrenCount'
+    "COUNT({$this->modx->escape('Children')}.{$this->modx->escape('text')}) AS {$this->modx->escape('childrenCount')}"
 ));
 $c->where(array(
     'modMenu.parent' => $id,

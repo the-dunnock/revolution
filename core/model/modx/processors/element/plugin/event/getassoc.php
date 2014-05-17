@@ -23,14 +23,14 @@ if (!empty($name)) {
 }
 if (!empty($event)) {
     $c->innerJoin('modPluginEvent','modPluginEvent',array(
-        'modPluginEvent.pluginid = modPlugin.id',
-        'modPluginEvent.event' => $event,
+        "{$modx->escape('modPluginEvent')}.{$modx->escape('pluginid')}  = {$modx->escape('modPlugin')}.{$modx->escape('id')}",
+        "{$modx->escape('modPluginEvent')}.{$modx->escape('event')}" => $event
     ));
     $c->select($modx->getSelectColumns('modPlugin','modPlugin'));
     $c->select(array(
-        'modPluginEvent.priority',
-        'modPluginEvent.pluginid',
-        'modPluginEvent.propertyset',
+        "{$modx->escape('modPluginEvent')}.{$modx->escape('priority')}",
+        "{$modx->escape('modPluginEvent')}.{$modx->escape('pluginid')}",
+        "{$modx->escape('modPluginEvent')}.{$modx->escape('propertyset')}"
     ));
 }
 $count = $modx->getCount('modPlugin',$c);

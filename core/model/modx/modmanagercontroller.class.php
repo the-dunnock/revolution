@@ -801,9 +801,9 @@ abstract class modManagerController {
         }
         $c = $this->modx->newQuery('modActionDom');
         $c->innerJoin('modFormCustomizationSet','FCSet');
-        $c->innerJoin('modFormCustomizationProfile','Profile','FCSet.profile = Profile.id');
-        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup','Profile.id = ProfileUserGroup.profile');
-        $c->leftJoin('modFormCustomizationProfile','UGProfile','UGProfile.id = ProfileUserGroup.profile');
+        $c->innerJoin('modFormCustomizationProfile','Profile',"{$this->modx->escape('FCSet')}.{$this->modx->escape('profile')} = {$this->modx->escape('Profile')}.{$this->modx->escape('id')}");
+        $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup',"{$this->modx->escape('Profile')}.{$this->modx->escape('id')} = {$this->modx->escape('ProfileUserGroup')}.{$this->modx->escape('profile')}");
+        $c->leftJoin('modFormCustomizationProfile','UGProfile',"{$this->modx->escape('UGProfile')}.{$this->modx->escape('id')} = {$this->modx->escape('ProfileUserGroup')}.{$this->modx->escape('profile')}");
         $c->where(array(
             'modActionDom.action' => array_key_exists('controller',$this->config) ? $this->config['controller'] : '',
             'modActionDom.for_parent' => $forParent,
@@ -829,7 +829,7 @@ abstract class modManagerController {
             'constraint',
             'template'
         )));
-        $c->sortby('modActionDom.rank','ASC');
+        $c->sortby("{$this->modx->escape('modActionDom')}.{$this->modx->escape('rank')}",'ASC');
         $domRules = $this->modx->getCollection('modActionDom',$c);
         $rules = array();
         /** @var modActionDom $rule */

@@ -245,15 +245,17 @@ class modLexicon {
             }
 
             /* get DB overrides */
+            // Changed to lower case for postgres instead of escaping everything to keep correct capitalization
             $c= $this->modx->newQuery('modLexiconEntry');
-            $c->innerJoin('modNamespace','Namespace');
+            $c->setClassAlias('modlexiconentry');
+            $c->innerJoin('modNamespace','namespace', 'namespace.name = modlexiconentry.namespace');
             $c->where(array(
-                'modLexiconEntry.topic' => $topic,
-                'modLexiconEntry.language' => $language,
-                'Namespace.name' => $namespace,
+                'modlexiconentry.topic' => $topic,
+                'modlexiconentry.language' => $language,
+                'namespace.name' => $namespace,
             ));
-            $c->sortby($this->modx->getSelectColumns('modLexiconEntry','modLexiconEntry','',array('name')),'ASC');
-            $entries= $this->modx->getCollection('modLexiconEntry',$c);
+            $c->sortby($this->modx->getSelectColumns('modLexiconEntry','modlexiconentry','',array('name')),'ASC');
+            $entries= $this->modx->getCollection('modlexiconentry',$c);
             if (!empty($entries)) {
                 /** @var modLexiconEntry $entry */
                 foreach ($entries as $entry) {

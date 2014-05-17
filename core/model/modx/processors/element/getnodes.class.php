@@ -241,7 +241,7 @@ class modElementGetNodesProcessor extends modProcessor {
 
         $c->select($this->modx->getSelectColumns('modCategory','modCategory'));
         $c->select(array(
-            'COUNT('.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS childrenCount',
+            'COUNT('.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS ' . $this->modx->escape('childrenCount'),
         ));
         $c->leftJoin('modCategory','Children');
         $c->groupby($this->modx->getSelectColumns('modCategory','modCategory'));
@@ -296,8 +296,8 @@ class modElementGetNodesProcessor extends modProcessor {
         /* first handle subcategories */
         $c = $this->modx->newQuery('modCategory');
         $c->select($this->modx->getSelectColumns('modCategory','modCategory'));
-        $c->select('COUNT('.$elementClassKey.'.id) AS elementCount');
-        $c->leftJoin($elementClassKey,$elementClassKey,$elementClassKey.'.category = modCategory.id');
+        $c->select('COUNT('.$elementClassKey.'.id) AS '.$this->modx->escape('elementCount'));
+        $c->leftJoin($elementClassKey,$elementClassKey,$elementClassKey.".category = {$this->moxd->escape('modCategory')}.{$this->moxd->escape('id')}");
         $c->where(array(
             'parent' => $categoryId,
         ));
@@ -404,8 +404,8 @@ class modElementGetNodesProcessor extends modProcessor {
         $c = $this->modx->newQuery('modCategory');
         $c->select($this->modx->getSelectColumns('modCategory','modCategory'));
         $c->select('
-            COUNT('.$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('id')).') AS elementCount,
-            COUNT('.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS childrenCount
+            COUNT('.$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('id')).') AS '.$this->modx->escape('elementCount').',
+            COUNT('.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS '.$this->modx->escape('childrenCount').'
         ');
         $c->leftJoin($elementClassKey,$elementClassKey,$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('category')).' = '.$this->modx->getSelectColumns('modCategory','modCategory','',array('id')));
         $c->leftJoin('modCategory','Children');

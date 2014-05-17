@@ -49,7 +49,8 @@ class modTemplateVarInputRenderResourceList extends modTemplateVarInputRender {
 			$context_key = $this->modx->resource->get('context_key');
             $c->where(array('modResource.context_key' => $context_key));
 		}
-        $c->sortby('Parent.menuindex,modResource.menuindex','ASC');
+
+        $c->sortby("{$this->modx->escape('Parent')}.{$this->modx->escape('menuindex')},{$this->modx->escape('modResource')}.{$this->modx->escape('menuindex')}",'ASC');
         if (!empty($params['limit'])) {
             $c->limit($params['limit']);
         }

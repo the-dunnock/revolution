@@ -130,7 +130,7 @@ class modResourceGetNodesProcessor extends modProcessor {
         $c= $this->modx->newQuery($this->itemClass, array('key:!=' => 'mgr'));
         if (!empty($this->defaultRootId)) {
             $c->where(array(
-                "(SELECT COUNT(*) FROM {$this->modx->getTableName('modResource')} WHERE context_key = modContext.{$this->modx->escape('key')} AND id IN ({$this->defaultRootId})) > 0",
+                "(SELECT COUNT(*) FROM {$this->modx->getTableName('modResource')} WHERE context_key = {$this->modx->escape('modContext')}.{$this->modx->escape('key')} AND id IN ({$this->defaultRootId})) > 0",
             ));
         }
         if ($this->modx->getOption('context_tree_sort',null,false)) {
@@ -165,10 +165,11 @@ class modResourceGetNodesProcessor extends modProcessor {
         );
         $this->itemClass= 'modResource';
         $c= $this->modx->newQuery($this->itemClass);
-        $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
+
+        $c->leftJoin('modResource', 'Child', array("{$this->modx->escape('modResource')}.{$this->modx->escape('id')} = {$this->modx->escape('Child')}.{$this->modx->escape('parent')}"));
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
-            'childrenCount' => 'COUNT(Child.id)',
+            $this->modx->escape('childrenCount') => "COUNT({$this->modx->escape('Child')}.{$this->modx->escape('id')})",
         ));
         $c->where(array(
             'context_key' => $this->contextKey,
@@ -185,7 +186,7 @@ class modResourceGetNodesProcessor extends modProcessor {
             ));
         }
         $c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
-        $c->sortby('modResource.'.$this->getProperty('sortBy'),$this->getProperty('sortDir'));
+        $c->sortby($this->modx->escape('modResource').".".$this->getProperty('sortBy'),$this->getProperty('sortDir'));
         return $c;
     }
 

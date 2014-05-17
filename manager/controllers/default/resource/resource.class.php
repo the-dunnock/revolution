@@ -269,12 +269,12 @@ abstract class ResourceManagerController extends modManagerController {
                 $c->query['distinct'] = 'DISTINCT';
                 $c->leftJoin('modCategory','Category');
                 $c->innerJoin('modTemplateVarTemplate','TemplateVarTemplate',array(
-                    'TemplateVarTemplate.tmplvarid = modTemplateVar.id',
-                    'TemplateVarTemplate.templateid' => $templateId,
+                    "{$this->modx->escape('TemplateVarTemplate')}.{$this->modx->escape('tmplvarid')} = {$this->modx->escape('modTemplateVar')}.{$this->modx->escape('id')}",
+                    "{$this->modx->escape('TemplateVarTemplate')}.{$this->modx->escape('templateid')}" => $templateId
                 ));
                 $c->leftJoin('modTemplateVarResource','TemplateVarResource',array(
-                    'TemplateVarResource.tmplvarid = modTemplateVar.id',
-                    'TemplateVarResource.contentid' => $this->resource->get('id'),
+                    "{$this->modx->escape('TemplateVarResource')}.{$this->modx->escape('tmplvarid')} = {$this->modx->escape('modTemplateVar')}.{$this->modx->escape('id')}",
+                    "{$this->modx->escape('TemplateVarResource')}.{$this->modx->escape('contentid')}" => $this->resource->get('id')
                 ));
                 $c->select($this->modx->getSelectColumns('modTemplateVar', 'modTemplateVar'));
                 $c->select($this->modx->getSelectColumns('modCategory', 'Category', 'cat_', array('category')));
@@ -282,7 +282,7 @@ abstract class ResourceManagerController extends modManagerController {
                     $c->select($this->modx->getSelectColumns('modTemplateVarResource', 'TemplateVarResource', '', array('value')));
                 }
                 $c->select($this->modx->getSelectColumns('modTemplateVarTemplate', 'TemplateVarTemplate', '', array('rank')));
-                $c->sortby('cat_category,TemplateVarTemplate.rank,modTemplateVar.rank','ASC');
+                $c->sortby("cat_category,{$this->modx->escape('TemplateVarTemplate')}.{$this->modx->escape('rank')},{$this->modx->escape('modTemplateVar')}.{$this->modx->escape('rank')}",'ASC');
                 $tvs = $this->modx->getCollection('modTemplateVar',$c);
 
                 $reloading = !empty($reloadData) && count($reloadData) > 0;

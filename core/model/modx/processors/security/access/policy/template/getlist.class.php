@@ -45,7 +45,7 @@ class modAccessPolicyTemplateGetListProcessor extends modObjectGetListProcessor 
         $subQuery = $this->modx->newQuery('modAccessPermission');
         $subQuery->select('COUNT(modAccessPermission.id)');
         $subQuery->where(array(
-            'modAccessPermission.template = modAccessPolicyTemplate.id',
+            "{$this->modx->escape('modAccessPermission')}.{$this->modx->escape('template')} = {$this->modx->escape('modAccessPolicyTemplate')}.{$this->modx->escape('id')}"
         ));
         $subQuery->prepare();
         $c->select($this->modx->getSelectColumns('modAccessPolicyTemplate','modAccessPolicyTemplate'));

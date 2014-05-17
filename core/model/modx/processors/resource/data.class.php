@@ -23,10 +23,10 @@ class modResourceDataProcessor extends modProcessor {
         $c = $this->modx->newQuery('modResource');
         $c->select(array(
             $this->modx->getSelectColumns('modResource','modResource'),
-            'template_name' => 'Template.templatename',
-            'creator' => 'CreatedBy.username',
-            'editor' => 'EditedBy.username',
-            'publisher' => 'PublishedBy.username',
+            'template_name' => "{$this->modx->escape('Template')}.{$this->modx->escape('templatename')}",
+            'creator' => "{$this->modx->escape('CreatedBy')}.{$this->modx->escape('username')}",
+            'editor' => "{$this->modx->escape('EditedBy')}.{$this->modx->escape('username')}",
+            'publisher' => "{$this->modx->escape('PublishedBy')}.{$this->modx->escape('username')}",
         ));
         $c->leftJoin('modTemplate','Template');
         $c->leftJoin('modUser','CreatedBy');

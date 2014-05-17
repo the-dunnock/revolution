@@ -2015,16 +2015,17 @@ class modX extends xPDO {
             $eventTbl= $this->getTableName('modEvent');
             $pluginTbl= $this->getTableName('modPlugin');
             $propsetTbl= $this->getTableName('modPropertySet');
+            // Changed to lower case for postgres instead of escaping everything to keep correct capitalization
             $sql= "
                 SELECT
-                    Event.name AS event,
-                    PluginEvent.pluginid,
-                    PropertySet.name AS propertyset
-                FROM {$pluginEventTbl} PluginEvent
-                    INNER JOIN {$pluginTbl} Plugin ON Plugin.id = PluginEvent.pluginid AND Plugin.disabled = 0
-                    INNER JOIN {$eventTbl} Event ON {$service} Event.name = PluginEvent.event
-                    LEFT JOIN {$propsetTbl} PropertySet ON PluginEvent.propertyset = PropertySet.id
-                ORDER BY Event.name, PluginEvent.priority ASC
+                    event.name AS event,
+                    pluginevent.pluginid,
+                    propertyset.name AS propertyset
+                FROM {$pluginEventTbl} pluginEvent
+                    INNER JOIN {$pluginTbl} plugin ON plugin.id = pluginevent.pluginid AND plugin.disabled = 0
+                    INNER JOIN {$eventTbl} event ON {$service} event.name = pluginevent.event
+                    LEFT JOIN {$propsetTbl} propertyset ON pluginevent.propertyset = propertyset.id
+                ORDER BY event.name, pluginevent.priority ASC
             ";
             $stmt= $this->prepare($sql);
             if ($stmt && $stmt->execute()) {
