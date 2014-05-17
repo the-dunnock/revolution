@@ -21,17 +21,17 @@ if (empty($scriptProperties['id'])) {
 
 if (!empty($scriptProperties['getUsers']) && !empty($scriptProperties['id'])) {
     $c = $modx->newQuery('modUserGroupMember');
-    $c->select('
-        modUserGroupMember.*,
-        User.username AS username,
-        UserGroupRole.name AS role_name
-    ');
+    $c->select("
+        {$this->modx->escape('modUserGroupMember')}.*,
+        {$this->modx->escape('User')}.{$this->modx->escape('username')} AS username,
+        {$this->modx->escape('UserGroupRole')}.{$this->modx->escape('name')} AS role_name
+    ");
     $c->innerJoin('modUser','User');
     $c->leftJoin('modUserGroupRole','UserGroupRole');
     $c->where(array(
         'user_group' => $usergroup->get('id'),
     ));
-    $c->sortby('UserGroupRole.authority','ASC');
+    $c->sortby("{$this->modx->escape('UserGroupRole')}.{$this->modx->escape('authority')}",'ASC');
     $usergroupMembers = $modx->getCollection('modUserGroupMember',$c);
 
     $data = array();
@@ -49,11 +49,11 @@ if (!empty($scriptProperties['getUsers']) && !empty($scriptProperties['id'])) {
 
 if (!empty($scriptProperties['getResourceGroups'])) {
     $c = $modx->newQuery('modAccessResourceGroup');
-    $c->select('
-        modAccessResourceGroup.*,
-        Policy.name AS policy_name,
-        Target.name AS resource_group_name
-    ');
+    $c->select("
+        {$this->modx->escape('modAccessResourceGroup')}.*,
+        {$this->modx->escape('Policy')}.{$this->modx->escape('name')} AS policy_name,
+        {$this->modx->escape('Target')}.{$this->modx->escape('name')} AS resource_group_name
+    ");
     $c->innerJoin('modAccessPolicy','Policy');
     $c->innerJoin('modResourceGroup','Target');
     $c->where(array(

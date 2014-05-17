@@ -34,9 +34,9 @@ $elementType = $modx->getOption('elementType',$scriptProperties,false);
 /* query for sets */
 $c = $modx->newQuery('modPropertySet');
 $c->leftJoin('modElementPropertySet','Elements', array(
-    'Elements.element_class'=> $elementType,
-    'Elements.element'=> $elementId,
-    'Elements.property_set = modPropertySet.id'
+    "{$modx->escape('Elements')}.{$modx->escape('element_class')}"=> $elementType,
+    "{$modx->escape('Elements')}.{$modx->escape('element')}"=> $elementId,
+    "{$modx->escape('Elements')}.{$modx->escape('property_set')} = {$modx->escape('modPropertySet')}.{$modx->escape('id')}"
 ));
 if ($showNotAssociated) {
     $c->where(array(

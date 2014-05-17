@@ -102,7 +102,8 @@ class modActionGetNodesProcessor extends modProcessor {
             'modAction.namespace' => $map['id'],
         ));
         $c->groupby($modActionCols);
-        $c->sortby('modAction.controller','ASC');
+
+        $c->sortby("{$this->modx->escape('modAction')}.{$this->modx->escape('controller')}",'ASC');
         $actions = $this->modx->getIterator('modAction',$c);
 
         /** @var modAction $action */
