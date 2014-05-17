@@ -52,4 +52,8 @@ class modElement_pgsql extends modElement {
         }
         return $propertySet;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> Loads of sql escapes, added override methods to pgsql objects
 }

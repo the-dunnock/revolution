@@ -10,6 +10,9 @@ require_once (dirname(dirname(__FILE__)) . '/moddbregistermessage.class.php');
  */
 class modDbRegisterMessage_pgsql extends modDbRegisterMessage {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Loads of sql escapes, added override methods to pgsql objects
     public static function getValidMessages(modDbRegister &$register, $topic, $topicBase, $topicMsg, $limit, array $options = array()) {
         $messages = array();
         $fetchMode = isset($options['fetchMode']) ? $options['fetchMode'] : PDO::FETCH_OBJ;
@@ -31,6 +34,9 @@ class modDbRegisterMessage_pgsql extends modDbRegisterMessage {
         }
         return $messages;
     }
+<<<<<<< HEAD
 =======
 >>>>>>> Bit more to initial commit
+=======
+>>>>>>> Loads of sql escapes, added override methods to pgsql objects
 }

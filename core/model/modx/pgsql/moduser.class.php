@@ -28,7 +28,6 @@ class modUser_pgsql extends modUser {
         }
         return array_merge($settings, $primary);
     }
-
     public function getPrimaryGroup() {
         if (!$this->isAuthenticated($this->xpdo->context->get('key'))) {
             return null;

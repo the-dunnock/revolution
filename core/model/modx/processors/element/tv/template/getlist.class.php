@@ -58,7 +58,11 @@ class modElementTvTemplateGetList extends modProcessor {
         $data['total'] = $this->modx->getCount('modTemplate',$c);
         $c->leftJoin('modTemplateVarTemplate','TemplateVarTemplates',array(
             "{$this->modx->escape('modTemplate')}.{$this->modx->escape('id')} = {$this->modx->escape('TemplateVarTemplates')}.{$this->modx->escape('templateid')}",
+<<<<<<< HEAD
             "{$this->modx->escape('TemplateVarTemplates')}.{$this->modx->escape('tmplvarid')}" => (int)$this->getProperty('tv')
+=======
+            "{$this->modx->escape('TemplateVarTemplates')}.{$this->modx->escape('tmplvarid')}" => $this->getProperty('tv')
+>>>>>>> Loads of sql escapes, added override methods to pgsql objects
         ));
         
         $c->select($this->modx->getSelectColumns('modTemplate','modTemplate'));
