@@ -12,7 +12,7 @@ class modTransportPackage_pgsql extends modTransportPackage {
     public static function listPackages(modX &$modx, $workspace, $limit = 0, $offset = 0,$search = '') {
         $result = array('collection' => array(), 'total' => 0);
         $c = $modx->newQuery('transport.modTransportPackage');
-        $c->leftJoin('transport.modTransportProvider','Provider', array("modTransportPackage.provider = Provider.id"));
+        $c->leftJoin('transport.modTransportProvider','Provider', array("\"modTransportPackage\".\"provider\" = \"Provider\".\"id\""));
         $c->where(array(
             'workspace' => $workspace,
         ));
