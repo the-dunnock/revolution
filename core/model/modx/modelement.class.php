@@ -705,7 +705,7 @@ class modElement extends modAccessibleSimpleObject {
                 $propertySet = $this->xpdo->getObject('modPropertySet', array('name' => $propertySet));
             }
             if (is_object($propertySet) && $propertySet instanceof modPropertySet) {
-                if (!$this->isNew() && !$propertySet->isNew() && $this->xpdo->getCount('modElementPropertySet', array('element' => $this->get('id'), 'element_class' => $this->_class, 'property_set' => $propertySet->get('id')))) {
+                if (!$this->isNew() && !$propertySet->isNew() && $this->xpdo->getCount('modElementPropertySet', array('element' => (int)$this->get('id'), 'element_class' => $this->_class, 'property_set' => (int)$propertySet->get('id')))) {
                     $added = true;
                 } else {
                     if ($propertySet->isNew()) $propertySet->save();

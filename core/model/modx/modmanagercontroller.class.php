@@ -805,7 +805,7 @@ abstract class modManagerController {
         $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup',"{$this->modx->escape('Profile')}.{$this->modx->escape('id')} = {$this->modx->escape('ProfileUserGroup')}.{$this->modx->escape('profile')}");
         $c->leftJoin('modFormCustomizationProfile','UGProfile',"{$this->modx->escape('UGProfile')}.{$this->modx->escape('id')} = {$this->modx->escape('ProfileUserGroup')}.{$this->modx->escape('profile')}");
         $c->where(array(
-            'modActionDom.action' => array_key_exists('controller',$this->config) ? $this->config['controller'] : '',
+            'modActionDom.action' => array_key_exists('controller',$this->config) ? $this->config['controller'] : (int)'',
             'modActionDom.for_parent' => $forParent,
             'FCSet.active' => true,
             'Profile.active' => true,
