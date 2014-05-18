@@ -66,9 +66,4 @@ class modTransportPackage_pgsql extends modTransportPackage {
         $result['collection'] = $modx->getCollection('transport.modTransportPackage',$c);
         return $result;
     }
-<<<<<<< HEAD
-=======
->>>>>>> Bit more to initial commit
-=======
->>>>>>> Loads of sql escapes, added override methods to pgsql objects
 }

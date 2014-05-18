@@ -35,11 +35,7 @@ $elementType = $modx->getOption('elementType',$scriptProperties,false);
 $c = $modx->newQuery('modPropertySet');
 $c->leftJoin('modElementPropertySet','Elements', array(
     "{$modx->escape('Elements')}.{$modx->escape('element_class')}"=> $elementType,
-<<<<<<< HEAD
     "{$modx->escape('Elements')}.{$modx->escape('element')}"=> (int)$elementId,
-=======
-    "{$modx->escape('Elements')}.{$modx->escape('element')}"=> $elementId,
->>>>>>> Loads of sql escapes, added override methods to pgsql objects
     "{$modx->escape('Elements')}.{$modx->escape('property_set')} = {$modx->escape('modPropertySet')}.{$modx->escape('id')}"
 ));
 if ($showNotAssociated) {
