@@ -9,18 +9,10 @@ require_once (dirname(dirname(__FILE__)) . '/modtransportpackage.class.php');
  * @subpackage transport.pgsql
  */
 class modTransportPackage_pgsql extends modTransportPackage {
-<<<<<<< HEAD
-<<<<<<< HEAD
     public static function listPackages(modX &$modx, $workspace, $limit = 0, $offset = 0,$search = '') {
         $result = array('collection' => array(), 'total' => 0);
         $c = $modx->newQuery('transport.modTransportPackage');
         $c->leftJoin('transport.modTransportProvider','Provider', array("\"modTransportPackage\".\"provider\" = \"Provider\".\"id\""));
-=======
-    public static function listPackages(modX &$modx, $workspace, $limit = 0, $offset = 0,$search = '') {
-        $result = array('collection' => array(), 'total' => 0);
-        $c = $modx->newQuery('transport.modTransportPackage');
-        $c->leftJoin('transport.modTransportProvider','Provider', array("modTransportPackage.provider = Provider.id"));
->>>>>>> Loads of sql escapes, added override methods to pgsql objects
         $c->where(array(
             'workspace' => $workspace,
         ));
