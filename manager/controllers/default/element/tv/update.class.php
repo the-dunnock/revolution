@@ -123,11 +123,11 @@ class ElementTVUpdateManagerController extends modManagerController {
     public function getElementSources() {
         $c = $this->modx->newQuery('modContext');
         $c->leftJoin('sources.modMediaSourceElement','SourceElements',array(
-            'SourceElements.object' => $this->tv->get('id'),
-            'SourceElements.object_class' => $this->tv->_class,
-            'SourceElements.context_key = modContext.key',
+            "{$this->modx->escape('SourceElements')}.{$this->modx->escape('object')}" => $this->tv->get('id'),
+            "{$this->modx->escape('SourceElements')}.{$this->modx->escape('object_class')}" => $this->tv->_class,
+            "{$this->modx->escape('SourceElements')}.{$this->modx->escape('context_key')} = {$this->modx->escape('modContext')}.{$this->modx->escape('key')}"
         ));
-        $c->leftJoin('sources.modMediaSource','Source','SourceElements.source = Source.id');
+        $c->leftJoin('sources.modMediaSource','Source',"{$this->modx->escape('SourceElements')}.{$this->modx->escape('source')} = {$this->modx->escape('Source')}.{$this->modx->escape('id')}");
         $c->select($this->modx->getSelectColumns('modContext','modContext'));
         $c->select($this->modx->getSelectColumns('sources.modMediaSourceElement','SourceElements'));
         $c->select($this->modx->getSelectColumns('sources.modMediaSource','Source','',array('name')));

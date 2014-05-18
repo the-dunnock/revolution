@@ -186,10 +186,10 @@ class modCacheManager extends xPDOCacheManager {
             ));
             $c->select($this->modx->getSelectColumns('sources.modMediaSourceElement','modMediaSourceElement'));
             $c->select(array(
-                'Source.name',
-                'Source.description',
-                'Source.properties',
-                'source_class_key' => 'Source.class_key',
+                "{$this->modx->escape('Source')}.{$this->modx->escape('name')}",
+                "{$this->modx->escape('Source')}.{$this->modx->escape('description')}",
+                "{$this->modx->escape('Source')}.{$this->modx->escape('properties')}",
+                "{$this->modx->escape('source_class_key')}" => "{$this->modx->escape('Source')}.{$this->modx->escape('class_key')}"
             ));
             $c->sortby($this->modx->getSelectColumns('sources.modMediaSourceElement','modMediaSourceElement','',array('object')),'ASC');
             $sourceElements = $this->modx->getCollection('sources.modMediaSourceElement',$c);
@@ -444,7 +444,7 @@ class modCacheManager extends xPDOCacheManager {
         $c->innerJoin('modNamespace','Namespace');
         $c->select($this->modx->getSelectColumns('modExtensionPackage', 'modExtensionPackage'));
         $c->select(array(
-            'namespace_path' => 'Namespace.path',
+            'namespace_path' => $this->modx->escape('Namespace').'.path',
         ));
         $c->sortby('namespace','ASC');
         if ($c->prepare() && $c->stmt->execute()) {
