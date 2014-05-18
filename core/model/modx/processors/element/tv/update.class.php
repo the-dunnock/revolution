@@ -108,19 +108,19 @@ class modElementTvUpdateProcessor extends modElementUpdateProcessor {
                     if ($template['access']) {
                         /** @var modTemplateVarTemplate $templateVarTemplate */
                         $templateVarTemplate = $this->modx->getObject('modTemplateVarTemplate',array(
-                            'tmplvarid' => $this->object->get('id'),
-                            'templateid' => $template['id'],
+                            'tmplvarid' => (int)$this->object->get('id'),
+                            'templateid' => (int)$template['id'],
                         ));
                         if (empty($templateVarTemplate)) {
                             $templateVarTemplate = $this->modx->newObject('modTemplateVarTemplate');
                         }
-                        $templateVarTemplate->set('tmplvarid',$this->object->get('id'));
-                        $templateVarTemplate->set('templateid',$template['id']);
+                        $templateVarTemplate->set('tmplvarid',(int)$this->object->get('id'));
+                        $templateVarTemplate->set('templateid',(int)$template['id']);
                         $templateVarTemplate->save();
                     } else {
                         $templateVarTemplate = $this->modx->getObject('modTemplateVarTemplate',array(
-                            'tmplvarid' => $this->object->get('id'),
-                            'templateid' => $template['id'],
+                            'tmplvarid' => (int)$this->object->get('id'),
+                            'templateid' => (int)$template['id'],
                         ));
                         if ($templateVarTemplate && $templateVarTemplate instanceof modTemplateVarTemplate) {
                             $templateVarTemplate->remove();

@@ -53,7 +53,6 @@ class modElementTvTemplateGetList extends modProcessor {
         $data = array();
         $limit = $this->getProperty('limit');
         $isLimit = !empty($limit);
-
         /* query for templates */
         $c = $this->modx->newQuery('modTemplate');
         $data['total'] = $this->modx->getCount('modTemplate',$c);
