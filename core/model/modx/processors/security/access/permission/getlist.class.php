@@ -37,7 +37,8 @@ class modAccessPermissionGetListProcessor extends modObjectGetListProcessor {
             "{$this->modx->escape('modAccessPermission')}.{$this->modx->escape('description')}",
             "{$this->modx->escape('Template')}.{$this->modx->escape('lexicon')}",
         ));
-        $c->groupby('modAccessPermission.name');
+        // Necessary Grouping?
+        //$c->groupby("{$this->modx->escape('modAccessPermission')}.{$this->modx->escape('name')}");
         return $c;
     }
     

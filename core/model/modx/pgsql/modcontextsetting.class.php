@@ -12,22 +12,20 @@ class modContextSetting_pgsql extends modContextSetting {
     public static function listSettings(xPDO &$xpdo, array $criteria = array(), array $sort = array('id' => 'ASC'), $limit = 0, $offset = 0) {
         /* build query */
         $c = $xpdo->newQuery('modContextSetting');
-        $c->setClassAlias('modcontextsetting');
         $c->select(array(
-            $xpdo->getSelectColumns('modContextSetting','modcontextsetting'),
+            $xpdo->getSelectColumns('modContextSetting','modContextSetting'),
         ));
         $c->select(array(
             'entry.value AS name_trans',
             'description.value AS description_trans',
         ));
-        $c->leftJoin('modLexiconEntry','entry',"'setting_'||modcontextsetting.{$xpdo->escape('key')}) = entry.name");
-        $c->leftJoin('modLexiconEntry','description',"'setting_'||modContextSetting.{$xpdo->escape('key')}||'_desc') = description.name");
+        $c->leftJoin('modLexiconEntry','entry',"'setting_'||\"modContextSetting\".{$xpdo->escape('key')} = entry.name");
+        $c->leftJoin('modLexiconEntry','description',"'setting_'||\"modContextSetting\".{$xpdo->escape('key')}||'_desc' = description.name");
         $c->where($criteria);
-
         $count = $xpdo->getCount('modContextSetting',$c);
-        $c->sortby($xpdo->getSelectColumns('modContextSetting','modcontextsetting','',array('area')),'ASC');
+        $c->sortby($xpdo->getSelectColumns('modContextSetting','modContextSetting','',array('area')),'ASC');
         foreach($sort as $field=> $dir) {
-            $c->sortby($xpdo->getSelectColumns('modContextSetting','modcontextsetting','',array($field)),$dir);
+            $c->sortby($xpdo->getSelectColumns('modContextSetting','modContextSetting','',array($field)),$dir);
         }
         if ((int) $limit > 0) {
             $c->limit((int) $limit, (int) $offset);
