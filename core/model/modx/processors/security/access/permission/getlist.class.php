@@ -32,10 +32,10 @@ class modAccessPermissionGetListProcessor extends modObjectGetListProcessor {
 
     public function prepareQueryAfterCount(xPDOQuery $c) {
         $c->select(array(
-            'modAccessPermission.id',
-            'modAccessPermission.name',
-            'modAccessPermission.description',
-            'Template.lexicon',
+            "{$this->modx->escape('modAccessPermission')}.{$this->modx->escape('id')}",
+            "{$this->modx->escape('modAccessPermission')}.{$this->modx->escape('name')}",
+            "{$this->modx->escape('modAccessPermission')}.{$this->modx->escape('description')}",
+            "{$this->modx->escape('Template')}.{$this->modx->escape('lexicon')}",
         ));
         $c->groupby('modAccessPermission.name');
         return $c;

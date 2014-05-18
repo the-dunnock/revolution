@@ -35,7 +35,7 @@ $c->where(array(
     'modMenu.parent' => $id,
 ));
 $c->sortby($sort,$dir);
-$c->groupby($modMenuCols . ', action, namespace');
+$c->groupby($modMenuCols . ', '. $modx->escape('Children').".".$modx->escape('action') .', ' . $modx->escape('Children') ."." . $modx->escape('namespace'));
 $c->prepare();
 if ($isLimit) $c->limit($limit,$start);
 $menus = $modx->getCollection('modMenu',$c);
