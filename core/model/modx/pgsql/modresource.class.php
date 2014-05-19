@@ -45,7 +45,7 @@ class modResource_pgsql extends modResource {
         }
         $c->innerJoin('modTemplateVarTemplate','tvtpl',array(
             "{$resource->xpdo->escape('tvtpl')}.{$resource->xpdo->escape('tmplvarid')} = {$resource->xpdo->escape('modTemplateVar')}.{$resource->xpdo->escape('id')}",
-            "{$resource->xpdo->escape('tvtpl')}.{$resource->xpdo->escape('tmplvarid')}" => $resource->get('template'),
+            "{$resource->xpdo->escape('tvtpl')}.{$resource->xpdo->escape('templateid')}" => $resource->get('template'),
         ));
         if (!$resource->isNew()) {
             $c->leftJoin('modTemplateVarResource','tvc',array(

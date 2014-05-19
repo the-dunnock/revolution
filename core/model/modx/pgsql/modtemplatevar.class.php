@@ -24,7 +24,7 @@ class modTemplateVar_pgsql extends modTemplateVar {
             }
             $c = $this->xpdo->newQuery('modActionDom');
             $c->innerJoin('modFormCustomizationSet','FCSet');
-            $c->innerJoin('modFormCustomizationProfile','Profile','"FCSet""."profile" = "Profile""."id"');
+            $c->innerJoin('modFormCustomizationProfile','Profile','"FCSet"."profile" = "Profile""."id"');
             $c->leftJoin('modFormCustomizationProfileUserGroup','ProfileUserGroup','"Profile"."id" = "ProfileUserGroup"."profile"');
             $c->leftJoin('modFormCustomizationProfile','UGProfile','"UGProfile"."id" = "ProfileUserGroup"."profile"');
             $ruleFieldName = $this->xpdo->escape('rule');
@@ -103,7 +103,7 @@ class modTemplateVar_pgsql extends modTemplateVar {
 
         $c = $this->xpdo->newQuery('modResourceGroup');
         $c->innerJoin('modTemplateVarResourceGroup','TemplateVarResourceGroups',array(
-            '"TemplateVarResourceGroups"."documentgroup "= "modResourceGroup"."id"',
+            '"TemplateVarResourceGroups"."documentgroup" = "modResourceGroup"."id"',
             '"TemplateVarResourceGroups"."tmplvarid"' => $this->get('id'),
         ));
         $resourceGroups = $this->xpdo->getCollection('modResourceGroup',$c);
