@@ -35,7 +35,6 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
       'precision' => '255',
       'phptype' => 'string',
       'null' => false,
-      'index' => 'pk',
     ),
     'created' => 
     array (
@@ -102,7 +101,17 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
           'collation' => 'A',
           'null' => false,
         ),
-        'id' => 
+      ),
+    ),
+    'id_idx' => 
+    array (
+      'alias' => 'id_idx',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'id_idx' => 
         array (
           'length' => '',
           'collation' => 'A',
