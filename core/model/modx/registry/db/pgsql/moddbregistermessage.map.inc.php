@@ -112,7 +112,7 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
       'type' => 'BTREE',
       'columns' => 
       array (
-        'id_idx' => 
+        'id_idx' =>
         array (
           'length' => '',
           'collation' => 'A',
