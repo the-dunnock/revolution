@@ -28,4 +28,21 @@ class modUser_pgsql extends modUser {
         }
         return array_merge($settings, $primary);
     }
+
+    public function getPrimaryGroup() {
+        if (!$this->isAuthenticated($this->xpdo->context->get('key'))) {
+            return null;
+        }
+        $userGroup = $this->getOne('PrimaryGroup');
+        if (!$userGroup) {
+            $c = $this->xpdo->newQuery('modUserGroup');
+            $c->innerJoin('modUserGroupMember','UserGroupMembers');
+            $c->where(array(
+                'UserGroupMembers.member' => $this->get('id'),
+            ));
+            $c->sortby('"UserGroupMembers"."rank"','ASC');
+            $userGroup = $this->xpdo->getObject('modUserGroup',$c);
+        }
+        return $userGroup;
+    }
 }
