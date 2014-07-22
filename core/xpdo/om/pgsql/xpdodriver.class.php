@@ -87,7 +87,6 @@ class xPDODriver_pgsql extends xPDODriver {
             }
             $tableName = $this->xpdo->literal($this->xpdo->getTableName($className));
             $sql = "SELECT currval('{$tableName}_{$column}_seq'::regclass)";
-
             $seqStmt = $this->xpdo->query($sql);
             if ($sequence = $seqStmt->fetchColumn()) {
                 $return = intval($sequence);

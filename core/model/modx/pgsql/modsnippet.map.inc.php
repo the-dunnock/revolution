@@ -1,8 +1,10 @@
+
 <?php
 /**
  * @package modx
  * @subpackage pgsql
- */
+ **/
+
 $xpdo_meta_map['modSnippet']= array (
   'package' => 'modx',
   'version' => '1.1',

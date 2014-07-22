@@ -11,8 +11,11 @@ require_once (dirname(dirname(__FILE__)) . '/modmediasource.class.php');
 class modMediaSource_pgsql extends modMediaSource {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Loads of sql escapes, added override methods to pgsql objects
+=======
+>>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
     public function findPolicy($context = '') {
         $policy = array();
         $enabled = true;
@@ -56,8 +59,11 @@ class modMediaSource_pgsql extends modMediaSource {
         return $policy;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Bit more to initial commit
 =======
 >>>>>>> Loads of sql escapes, added override methods to pgsql objects
+=======
+>>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
 }

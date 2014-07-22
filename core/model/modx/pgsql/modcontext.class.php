@@ -9,10 +9,6 @@ require_once (dirname(dirname(__FILE__)) . '/modcontext.class.php');
  * @subpackage pgsql
  */
 class modContext_pgsql extends modContext {
-<<<<<<< HEAD
-=======
-
->>>>>>> Loads of sql escapes, added override methods to pgsql objects
     public static function getResourceCacheMapStmt(&$context) {
         $stmt = false;
         if ($context instanceof modContext) {
