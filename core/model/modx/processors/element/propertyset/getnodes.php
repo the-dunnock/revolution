@@ -191,14 +191,14 @@ switch ($node[0]) {
 
         foreach ($classes as $class => $alias) {
             $c = $modx->newQuery('modElementPropertySet');
-            $c->select('modElementPropertySet.*, '.$alias.'.*');
+            $c->select($modx->escape('modElementPropertySet').'.*, '.$this->modx->escape($alias).'.*');
             $c->innerJoin($class,$alias,array(
-                "{$modx->escape('modElementPropertySet')}.{$modx->escape('id')}"=> $alias,
+                "{$modx->escape('modElementPropertySet')}.{$modx->escape('element')} = {$modx->escape($alias)}.id",
                 "{$modx->escape('modElementPropertySet')}.{$modx->escape('element_class')}"=> $class,
                 "{$modx->escape('modElementPropertySet')}.{$modx->escape('property_set')}"=> $node[1]
             ));
             $uk = ($class == 'modTemplate') ? 'templatename' : 'name';
-            $c->sortby($alias.'.'.$uk,'ASC');
+            $c->sortby($this->modx->escape($alias).'.'.$this->modx->escape($uk),'ASC');
             $els = $modx->getCollection('modElementPropertySet',$c);
 
             foreach ($els as $el) {

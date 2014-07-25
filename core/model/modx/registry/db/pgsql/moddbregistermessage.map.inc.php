@@ -1,14 +1,8 @@
-<<<<<<< HEAD
+
 <?php
 /**
  * @package modx
  * @subpackage registry.db.pgsql
-=======
-<?php
-/**
- * @package modx
- * @subpackage registry.db.pgsql
->>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
  */
 $xpdo_meta_map['modDbRegisterMessage']= array (
   'package' => 'modx.registry.db',
@@ -41,11 +35,7 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
       'dbtype' => 'varchar',
       'precision' => '255',
       'phptype' => 'string',
-      'null' => false,
-<<<<<<< HEAD
       'index' => 'pk',
-=======
->>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
     ),
     'created' => 
     array (
@@ -122,11 +112,7 @@ $xpdo_meta_map['modDbRegisterMessage']= array (
       'type' => 'BTREE',
       'columns' => 
       array (
-<<<<<<< HEAD
         'id_idx' =>
-=======
-        'id_idx' => 
->>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
         array (
           'length' => '',
           'collation' => 'A',

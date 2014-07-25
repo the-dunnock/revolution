@@ -104,7 +104,8 @@ class SourceUpdateManagerController extends modManagerController {
 
     public function getAccess() {
         $c = $this->modx->newQuery('sources.modAccessMediaSource');
-        $c->innerJoin('sources.modMediaSource','Target');
+        $c->innerJoin('sources.modMediaSource','Target',
+            "CAST({$this->modx->escape('Target')}.{$this->modx->escape('id')} AS varchar) = {$this->modx->escape('modAccessMediaSource')}.{$this->modx->escape('target')}");
         $c->innerJoin('modAccessPolicy','Policy');
         $c->innerJoin('modUserGroup','Principal');
         $c->innerJoin('modUserGroupRole','MinimumRole');
@@ -113,10 +114,10 @@ class SourceUpdateManagerController extends modManagerController {
         ));
         $c->select($this->modx->getSelectColumns('sources.modAccessMediaSource','modAccessMediaSource'));
         $c->select(array(
-            'target_name' => 'Target.name',
-            'principal_name' => 'Principal.name',
-            'policy_name' => 'Policy.name',
-            'authority_name' => 'MinimumRole.name',
+            'target_name' => "{$this->modx->escape('Target')}.{$this->modx->escape('name')}",
+            'principal_name' => "{$this->modx->escape('Principal')}.{$this->modx->escape('name')}",
+            'policy_name' => "{$this->modx->escape('Policy')}.{$this->modx->escape('name')}",
+            'authority_name' =>"{$this->modx->escape('MinimumRole')}.{$this->modx->escape('name')}"
         ));
         $acls = $this->modx->getCollection('sources.modAccessMediaSource',$c);
         $access = array();

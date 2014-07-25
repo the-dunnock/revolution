@@ -43,7 +43,7 @@ class modTemplate_pgsql extends modTemplate {
         if (!empty($conditions)) { $c->where($conditions); }
         $c->select(array(
             'CASE WHEN "modTemplateVarTemplate"."tmplvarid" IS NULL THEN 0 ELSE 1 END as access',
-            'COALESCE(CAST("modTemplateVarTemplate"."rank" AS VARCHAR), \'-\')',
+            'COALESCE(CAST("modTemplateVarTemplate"."rank" AS VARCHAR), \'-\') AS tv_rank',
             'category_name' => '"Category"."category"',
         ));
         foreach ($sort as $sortKey => $sortDir) {

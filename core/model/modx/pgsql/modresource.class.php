@@ -35,7 +35,7 @@ class modResource_pgsql extends modResource {
             $c->select(array(
                 "{$resource->xpdo->escape('modTemplateVar')}.{$resource->xpdo->escape('default_text')} as value",
                 "0 as {$resource->xpdo->escape('resourceId')}",
-                "{$resource->xpdo->escape('tvtpl')}.{$resource->xpdo->escape('rank')} as tv_rank"
+                "{$resource->xpdo->escape('tvtpl')}.{$resource->xpdo->escape('rank')} as \"tv_rank\""
             ));
         } else {
             $c->select(array(
@@ -54,7 +54,7 @@ class modResource_pgsql extends modResource {
             ));
         }
         if ($resource->isNew()) {
-            $c->sortby('tv_rank');
+            $c->sortby('"tv_rank"');
         }
         $c->sortby("{$resource->xpdo->escape('modTemplateVar')}.{$resource->xpdo->escape('rank')}");
         return $resource->xpdo->getCollection('modTemplateVar', $c);

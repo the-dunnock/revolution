@@ -415,24 +415,8 @@ class modElementGetNodesProcessor extends modProcessor {
         $c = $this->modx->newQuery('modCategory');
         $c->select($this->modx->getSelectColumns('modCategory','modCategory'));
         $c->select('
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
             COUNT(DISTINCT '.$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('id')).') AS elementCount,
             COUNT(DISTINCT '.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS childrenCount
-=======
-            COUNT('.$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('id')).') AS '.$this->modx->escape('elementCount').',
-            COUNT('.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS '.$this->modx->escape('childrenCount').'
->>>>>>> Loads of sql escapes, added override methods to pgsql objects
-<<<<<<< HEAD
-=======
-=======
-            COUNT('.$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('id')).') AS '.$this->modx->escape('elementCount').',
-            COUNT('.$this->modx->getSelectColumns('modCategory','Children','',array('id')).') AS '.$this->modx->escape('childrenCount').'
->>>>>>> f667b7551c53ab84c2a798350a44eb2ca3e05831
->>>>>>> d6a35d737561da70fcea798bb988c2c1acf0dca0
         ');
         $c->leftJoin($elementClassKey,$elementClassKey,$this->modx->getSelectColumns($elementClassKey,$elementClassKey,'',array('category')).' = '.$this->modx->getSelectColumns('modCategory','modCategory','',array('id')));
         $c->leftJoin('modCategory','Children');
