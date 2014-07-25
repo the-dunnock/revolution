@@ -53,11 +53,17 @@
     }
 
     .x-tab-strip-wrap {
-      background-color: $lighterGray;
+      /*background-color: $lighterGray;*/
+      padding: 2px 0 0 0; /* revert padding from main tabs for nested ones */
+      margin: 0; /* revert margin from main tabs for nested ones */
+
+      .x-tab-strip {
+        background-color: $lightestGray !important; /* override !important rule defined by extjs default theme */
+      }
     }
 
     .x-tab-panel-body {
-      border-top: 1px solid $softGray;
+      /*border-top: 1px solid $softGray;*/
     }
   }
 }
@@ -312,6 +318,7 @@ ul.x-tab-strip-bottom {
         width: auto;
 
         > li {
+          border-right: 1px solid $borderColor;
           border-bottom: 1px solid $borderColor;
           color: $coreFieldLabelColor;
           float: none;
@@ -320,18 +327,20 @@ ul.x-tab-strip-bottom {
           overflow: hidden;
           padding: 10px 15px 10px 15px;
           transition: background-color 0.25s, color 0.25s;
-          white-space: nowrap;
 
           &:hover {
             background: $white;
           }
+
           &.x-tab-strip-active {
             background: $white;
             border-color: $borderColorHover;
+            border-right-color: $white;
             box-shadow: none; /* removes the active tab strip on top */
             color: $tabActiveText;
-            width: 169px; /* make the active li 1px more wide to cover the containers right border */
+            width: 169px; /* make the active li 1px more wide to cover the containers right border, this makes the right border on inactive tabs necessary as the whole tab-strip wrap gets wider */
           }
+
           &.x-tab-edge {
             height: 0;
             visibility: hidden; /* display none makes the tab scroll buttons appear somehow */
@@ -339,6 +348,12 @@ ul.x-tab-strip-bottom {
             .x-tab-strip-text {
               display: none; /* prevent 4px high space at the end of the tab strip */
             }
+          }
+
+          .x-tab-strip-text {
+            line-height: 1.4;
+            padding: 2px 0 2px 0;
+            white-space: normal; /* prevent long category names from breaking out of the tab strip width */
           }
         }
       }
@@ -370,9 +385,9 @@ ul.x-tab-strip-bottom {
       border: 0; /* do not add the top border for nested tabs panels */
       padding: 15px 20px 15px 15px; /* 20px account for too wide form fields (no border-box) */
 
-      .tvs-wrapper & {
-        padding: 15px 20px 15px 30px; /* 30px account for the tv reset icon */
-      }
+      /*.tvs-wrapper & {*/
+        /*padding: 15px 20px 15px 30px; /* 30px account for the tv reset icon */
+      /*}*/
     }
   }
 }

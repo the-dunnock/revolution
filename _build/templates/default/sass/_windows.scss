@@ -98,7 +98,8 @@
 
   .x-window-body {
     background-color: $winBodyBg !important; /* override extjs default theme transparent !important style from .x-window-plain */
-    overflow: visible; /* prevent box-shadow from tabs and panel being cut off */
+    /*overflow: visible; /* prevent box-shadow from tabs and panel being cut off */
+    overflow-y: auto;
     padding: 15px;
   }
 
@@ -106,7 +107,7 @@
     background: $winBodyBg;
     /*box-shadow: $boxShadow;*/
     /*border-radius: $borderRadius;*/
-    overflow-y: auto; /* make the content area of normal windows scrollable, fix always visible scrollbars with auto */
+    /*overflow-y: auto; /* make the content area of normal windows scrollable, fix always visible scrollbars with auto */
     /*padding: 10px;*/
     padding: 0;
 
@@ -124,6 +125,7 @@
 
     .x-window-body {
       background-color: $lightestGray !important; /* override !important rule from above */
+      overflow: visible; /* prevent box-shadow from tabs and panel being cut off */
     }
 
     .x-panel-bwrap {
@@ -250,6 +252,33 @@
   } /* .modx-console */
 } /* .x-window */
 
+/* the progress bar (ex. saving a resource), usually in a window too */
+.x-progress-wrap {
+  border: 1px solid $colorSplash;
+
+  .x-progress-inner {
+    background-color: $colorSplashLight;
+    /*background-image: url($imgPath + 'modx-theme/qtip/bg.gif');*/
+  }
+
+  .x-progress-bar {
+    background-color: $colorSplash;
+    /*background-image: url($imgPath + 'modx-theme/progress/progress-bg.gif');*/
+    border: 0;
+  }
+
+  .x-progress-text {
+    color: $colorSplashContrast;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .x-progress-text-back {
+    color: $darkGray;
+  }
+}
+
+/* the window modal mask, but also the mask that covers a grid when reloading for example */
 .ext-el-mask {
   background-color: $white;
   opacity: 0;
@@ -265,6 +294,7 @@
   .x-masked & {
     opacity: 0.5;
     filter: alpha(opacity=50); /* for IE <= 8 */
+    z-index: 9; /* extjs standard is 100, 10 prevents overlapping the topnav dropdowns */
   }
 }
 
@@ -322,14 +352,14 @@
   margin-left: 0 !important;
 }
 
-/* don't know when these styles are used */
+/* this is the little box showing if a grid is locked, refreshing etc. */
 .ext-el-mask-msg {
   background-color: $white;
   border: 1px solid $softGray;
   box-shadow: $boxShadow;
   border-radius: $borderRadius;
   padding: 5px;
-  z-index: 101; /* the mask has 100 */
+  z-index: 10; /* the mask has 9, prevents overlapping the topnav dropdowns */
 }
 
 .ext-el-mask-msg div {
@@ -344,8 +374,9 @@
   color: $red;
 }
 
+/* the loading indicator when refreshing a grid or component */
 .x-mask-loading div {
-  background-color: $lightestGray;
+  /*background-color: $lightestGray;*/
   background-image: url($imgPath + 'modx-theme/grid/loading.gif');
 }
 

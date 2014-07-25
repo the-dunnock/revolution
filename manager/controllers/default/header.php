@@ -95,30 +95,25 @@ class TopMenu
         /** @var modUserProfile $userProfile */
         $userProfile = $this->modx->user->getOne('Profile');
 
+        // Default to FontAwesome
+        $userImage = '<i class="icon icon-user icon-large"></i>&nbsp;';
+
         if ($userProfile->photo) {
             // First, handle user defined image
             $src = $this->modx->getOption('connectors_url', MODX_CONNECTORS_URL)
                 .'system/phpthumb.php?zc=1&h=128&w=128&src='
                 .$userProfile->photo;
             $userImage = '<img src="' . $src . '" />';
-        } else {
-            // Fallback to Gravatar
+        } elseif ($this->modx->getOption('enable_gravatar')) {
+            // Gravatar
             $gravemail = md5(
                 strtolower(
                     trim($userProfile->email)
                 )
             );
             $gravsrc = $this->modx->getOption('url_scheme', null, 'http://') . 'www.gravatar.com/avatar/'
-                .$gravemail . '?s=128';
-            $gravcheck = $this->modx->getOption('url_scheme', null, 'http://') . 'www.gravatar.com/avatar/'
-                .$gravemail . '?d=404';
-            $response = get_headers($gravcheck);
-
-            if ($response != false) {
-                $userImage = '<img src="' . $gravsrc . '" />';
-            } else {
-                $userImage = '<i class="icon-user icon-large"></i>';
-            }
+            .$gravemail . '?s=128&d=mm';
+            $userImage = '<img src="' . $gravsrc . '" />';
         }
 
         return $userImage;
@@ -177,9 +172,9 @@ class TopMenu
                     // No icon, no title property
                     $title = '';
                 }
-                $menuTpl .= '<a href="?a='.$menu['action'].$menu['params'].'"'.$title.'>'.$label.$description.'</a>'."\n";
+                $menuTpl .= '<a href="?a='.$menu['action'].$menu['params'].'"'.( $top ? ' class="top-link"': '' ).$title.'>'.$label.$description.'</a>'."\n";
             } else {
-                $menuTpl .= '<a href="javascript:;">'.$menu['text'].'</a>'."\n";
+                $menuTpl .= '<a href="javascript:;">'.$label.'</a>'."\n";
             }
 
             if (!empty($menu['children'])) {

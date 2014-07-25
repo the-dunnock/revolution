@@ -117,7 +117,7 @@ $settings['automatic_alias']->fromArray(array (
 $settings['base_help_url']= $xpdo->newObject('modSystemSetting');
 $settings['base_help_url']->fromArray(array (
   'key' => 'base_help_url',
-  'value' => 'http://rtfm.modx.com/display/revolution20/',
+  'value' => '//rtfm.modx.com/display/revolution20/',
   'xtype' => 'textfield',
   'namespace' => 'core',
   'area' => 'manager',
@@ -567,7 +567,7 @@ $settings['feed_modx_news_enabled']->fromArray(array (
 $settings['feed_modx_security']= $xpdo->newObject('modSystemSetting');
 $settings['feed_modx_security']->fromArray(array (
   'key' => 'feed_modx_security',
-  'value' => 'http://feeds.feedburner.com/modxsecurity',
+  'value' => 'http://forums.modx.com/board.xml?board=294',
   'xtype' => 'textfield',
   'namespace' => 'core',
   'area' => 'system',
@@ -1940,6 +1940,15 @@ $settings['xhtml_urls']->fromArray(array (
   'xtype' => 'combo-boolean',
   'namespace' => 'core',
   'area' => 'site',
+  'editedon' => null,
+), '', true, true);
+$settings['enable_gravatar']= $xpdo->newObject('modSystemSetting');
+$settings['enable_gravatar']->fromArray(array (
+  'key' => 'enable_gravatar',
+  'value' => true,
+  'xtype' => 'combo-boolean',
+  'namespace' => 'core',
+  'area' => 'manager',
   'editedon' => null,
 ), '', true, true);
 return $settings;
